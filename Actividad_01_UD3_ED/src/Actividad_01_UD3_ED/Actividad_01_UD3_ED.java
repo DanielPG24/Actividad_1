@@ -17,23 +17,23 @@ import java.io.IOException;
 public class Actividad_01_UD3_ED 
 {
     private static byte[] intermedio = new byte[1000]; /*De buffer a intermedio*/
-    private static String nombreArchivo = "fichero.dat";
-    private static FileInputStream inputStream = null;
-    private static BufferedInputStream inputBuffer = null;
+    private static String nombreArchivo = "fichero.dat"; /*De fileName a nombreArchivo*/
+    private static FileInputStream flujoEntreda = null; /*De inputStream a flujoEntrada*/
+    private static BufferedInputStream flujoIntermedio = null; /*De inputBuffered a flujoIntermedio*/
 
     public static void inicializateFiles() throws FileNotFoundException
     {
-        inputStream = new FileInputStream(nombreArchivo);
-        inputBuffer = new BufferedInputStream(inputStream); /*Esta funcion recoje el documento para almacenarlo en el programa*/
+        flujoEntreda = new FileInputStream(nombreArchivo);
+        flujoIntermedio = new BufferedInputStream(flujoEntreda); /*Esta funcion recoje el documento para almacenarlo en el programa*/
     }
     
     public static int showFileText() throws IOException
     {
         int total = 0;
         int nRead = 0;
-        while((nRead = inputStream.read(intermedio)) != -1) 
+        while((nRead = flujoEntreda.read(intermedio)) != -1) 
         {
-            System.out.println(new String(intermedio));
+            System.out.println(new String(intermedio)); /*Aqui se cuentan los bytes del documento*/
             total += nRead;
         }
         
@@ -47,11 +47,11 @@ public class Actividad_01_UD3_ED
     {        
         try 
         {
-            inicializateFiles();
+            inicializateFiles(); /*Muestra el archivo*/ 
             
-            int total = showFileText();           
+            int total = showFileText(); /*Llama a la funcion de contar bytes*/         
 
-            System.out.println("\nLeídos " + total + " bytes");
+            System.out.println("\nLeídos " + total + " bytes"); /*Imprime los bytes*/
         }
         catch(IOException ex) 
         {
@@ -61,15 +61,15 @@ public class Actividad_01_UD3_ED
         {
             try 
             {
-                if( inputBuffer != null && inputStream != null )
+                if( flujoIntermedio != null && flujoEntreda != null )
                 {
-                    inputStream.close();
-                    inputBuffer.close();
+                    flujoEntreda.close();
+                    flujoIntermedio.close();
                 }                
             } 
             catch (IOException ex) 
             {
-                System.out.println("Error al cerrar el fichero -> " + ex.toString());
+                System.out.println("Error al cerrar el fichero -> " + ex.toString()); /*Esto nos da el error de que no se a encontrado el archivo*/
             }
         }
     }
